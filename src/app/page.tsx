@@ -1,101 +1,104 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useState } from 'react';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import FunnelWorkflow from '@/components/FunnelWorkflow';
+import CalculatorContainer from '@/components/Calculators/CalculatorContainer';
+import IntakeQuestionnaire from '@/components/Booking/IntakeQuestionnaire';
+import PortfolioExplorer from '@/components/Portfolios/PortfolioExplorer';
+import PricingTable from '@/components/PricingTable';
+import ComplianceModal from '@/components/ComplianceModal';
+import Footer from '@/components/Footer';
+import { Layers, Sparkles, ArrowRight, ShieldCheck, TrendingUp, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
+
+export default function HomePage() {
+  const [complianceOpen, setComplianceOpen] = useState(false);
+
+  const scrollToBooking = () => {
+    const el = document.getElementById('booking-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-[#080C14] text-white selection:bg-emerald-500 selection:text-slate-950 font-sans flex flex-col">
+      {/* Top Navbar */}
+      <Navbar
+        onOpenCompliance={() => setComplianceOpen(true)}
+        onOpenBooking={scrollToBooking}
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+      <main className="flex-1">
+        {/* Hero Section */}
+        <Hero
+          onOpenBooking={scrollToBooking}
+          onOpenCompliance={() => setComplianceOpen(true)}
+        />
+
+        {/* Section 2: End-to-End Client Funnel Architecture */}
+        <FunnelWorkflow />
+
+        {/* Section 1: Interactive Client Calculators Suite */}
+        <CalculatorContainer
+          onOpenBooking={scrollToBooking}
+        />
+
+        {/* Section 4: Paid 30-Minute Consultation & Calendar Integration ($150) */}
+        <IntakeQuestionnaire />
+
+        {/* Section 5: Model Portfolios Architecture Showcase */}
+        <section id="portfolios-section" className="py-20 bg-[#090D16] border-b border-slate-800 relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>SECTION 5: POST-CONSULTATION SAAS MODEL PORTFOLIO ARCHITECTURE</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Institutional Model Portfolios
+              </h2>
+              <p className="mt-3 text-slate-400 text-sm sm:text-base">
+                Curated asset allocations with live ticker weightings, quarterly rebalances, and automated drift triggers (±5%).
+              </p>
+            </div>
+
+            {/* Interactive Model Portfolios Explorer */}
+            <PortfolioExplorer />
+
+            {/* Transition CTA to Member Portal */}
+            <div className="mt-12 text-center">
+              <Link
+                href="/portal"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-xl shadow-emerald-600/25 transition-all"
+              >
+                <span>Launch Rebalance Simulator in Member Portal</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6: Data Schema & Recurring Billing Models */}
+        <PricingTable
+          onOpenBooking={scrollToBooking}
+          onOpenCompliance={() => setComplianceOpen(true)}
+        />
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      {/* Footer */}
+      <Footer
+        onOpenCompliance={() => setComplianceOpen(true)}
+        onOpenBooking={scrollToBooking}
+      />
+
+      {/* Compliance Disclaimer Modal */}
+      <ComplianceModal
+        isOpen={complianceOpen}
+        onClose={() => setComplianceOpen(false)}
+      />
     </div>
   );
 }

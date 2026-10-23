@@ -118,7 +118,7 @@ export default function RebalanceCalculator() {
           <select
             value={selectedPortfolioId}
             onChange={(e) => {
-              const id = e.target.value as any;
+              const id = e.target.value as 'conservative' | 'balanced' | 'aggressive';
               setSelectedPortfolioId(id);
               const fresh: Record<string, number> = {};
               MODEL_PORTFOLIOS[id].allocations.forEach((a) => {
